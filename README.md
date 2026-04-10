@@ -1,8 +1,8 @@
-﻿# C-CLAIM: Chinese Criminal Law Article and Interpretations Mapping Dataset
+# C-CLAIM: Chinese Criminal Law Article and Interpretations Mapping Dataset
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-blue.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
-[涓枃鐗?/ Chinese Version](./README_zh.md)
+[中文版 / Chinese Version](./README_zh.md)
 
 ## Project Overview
 
@@ -12,33 +12,33 @@ C-CLAIM provides a systematic mapping from legal articles to case types (crime n
 
 ```text
 C-CLAIM/
-鈹溾攢鈹€ setup.py                 # Installation script
-鈹溾攢鈹€ MANIFEST.in              # Package manifest
-鈹溾攢鈹€ README.md                # English documentation
-鈹溾攢鈹€ README_zh.md             # Chinese documentation
-鈹斺攢鈹€ c_claim/
-    鈹溾攢鈹€ data/
-    鈹?  鈹溾攢鈹€ 鍒戞硶鏉℃枃.csv          # Criminal law articles with case type annotations
-    鈹?  鈹溾攢鈹€ 鍒戞硶鍙告硶瑙ｉ噴.csv       # Judicial interpretations from Supreme Court
-    鈹?  鈹溾攢鈹€ 鍒戞硶鍙告硶鏂囦欢.csv       # Other important judicial documents
-    鈹?  鈹溾攢鈹€ 绔犺妭妗堢敱琛?jsonl       # Chapter-aggregated case type index
-    鈹?  鈹斺攢鈹€ 鏍囧噯妗堢敱琛?txt         # 484 standardized case types
-    鈹斺攢鈹€ __init__.py              # Python Reader
+├── setup.py                 # Installation script
+├── MANIFEST.in              # Package manifest
+├── README.md                # English documentation
+├── README_zh.md             # Chinese documentation
+└── c_claim/
+    ├── data/
+    │   ├── 刑法条文.csv          # Criminal law articles with case type annotations
+    │   ├── 刑法司法解释.csv       # Judicial interpretations from Supreme Court
+    │   ├── 刑法司法文件.csv       # Other important judicial documents
+    │   ├── 章节案由表.jsonl       # Chapter-aggregated case type index
+    │   └── 标准案由表.txt         # 484 standardized case types
+    └── __init__.py              # Python Reader
 ```
 
 ## Data Fields
 
-### 鍒戞硶鏉℃枃 (Criminal Law Articles)
+### 刑法条文 (Criminal Law Articles)
 
 | Field | Type | Description |
 |-------|------|-------------|
 | chapter | string | Chapter name |
-| article_no | string | Article number (e.g., "绗竴鐧鹃浂浜屾潯") |
+| article_no | string | Article number (e.g., "第一百零二条") |
 | text | string | Article text |
 | category | string | Category (original/amendment) |
 | case_types | string | Case type list (JSON array) |
 
-### 鍙告硶瑙ｉ噴/鍙告硶鏂囦欢 (Judicial Interpretations & Documents)
+### 司法解释/司法文件 (Judicial Interpretations & Documents)
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -58,7 +58,7 @@ C-CLAIM/
 > **Special Note**: To ensure complete coverage of crimes, the dataset includes the "Decision of the Standing Committee of the National People's Congress on Punishing Crimes of Fraudulent Purchase, Evasion and Illegal Trading of Foreign Exchange" (inserted at the end of Chapter III, Section 4), mapped to the "Crime of Fraudulent Purchase of Foreign Exchange".
 
 ### Judicial Interpretations & Documents
-**Source**: [Supreme People's Court Gazette Website (鏈€楂樹汉姘戞硶闄㈠叕鎶ョ綉绔?](http://gongbao.court.gov.cn/)
+**Source**: [Supreme People's Court Gazette Website (最高人民法院公报网站)](http://gongbao.court.gov.cn/)
 
 **Annotation**: LLM-based hierarchical classification with expert review to ensure accuracy of case type mappings.
 
@@ -87,7 +87,7 @@ articles = load_articles()
 print(f"Total articles: {len(articles)}")
 
 # Filter by chapter
-articles = load_articles(chapter="鍗卞鍥藉瀹夊叏缃?)
+articles = load_articles(chapter="危害国家安全罪")
 
 # Load chapter-case-type index
 chapters = load_chapters()
@@ -95,16 +95,16 @@ for chapter in chapters[:5]:
     print(f"{chapter['chapter']}: {len(chapter['case_types'])} case types")
 
 # Find chapters by case type
-chapters = find_chapters_by_case_type("寮哄ジ缃?)
-# ['绗洓绔?渚电姱鍏皯浜鸿韩鏉冨埄銆佹皯涓绘潈鍒╃姜']
+chapters = find_chapters_by_case_type("强奸罪")
+# ['第四章 侵犯公民人身权利、民主权利罪']
 
 # Get all case types
 case_types = get_case_types()
 print(f"Total case types: {len(case_types)}")  # 484
 
 # Load judicial interpretations (title is fuzzy-matched keyword)
-interpretations = load_interpretations(title="娲楅挶")
-# Returns all interpretations with "娲楅挶" in the title
+interpretations = load_interpretations(title="洗钱")
+# Returns all interpretations with "洗钱" in the title
 ```
 
 ## Statistics
@@ -121,10 +121,10 @@ interpretations = load_interpretations(title="娲楅挶")
 
 | Name | Contribution |
 |------|--------------|
-| **Zhijie Liu** (鍒樻櫤鏉? <sup>*</sup> | Core Development, Data Crawling, LLM Prompt Engineering |
-| **Zixuan Feng** (鍐瓙钀? <sup>*</sup> | Legal Expert Review, Coverage Validation, Manual Annotation of Anomalies |
-| **Ran Qiu** (閭辩劧) <sup>*</sup> | Legal Expert Review, Consistency Validation, Auxiliary Data Cleaning |
-| **Jiarong Ge** (钁涘槈鑽? <sup>*</sup> | Legal Expert Review, Automated Sampling & Proofreading, Manual Annotation of Anomalies |
+| **Zhijie Liu** (刘智杰) <sup>*</sup> | Core Development, Data Crawling, LLM Prompt Engineering |
+| **Zixuan Feng** (冯子萱) <sup>*</sup> | Legal Expert Review, Coverage Validation, Manual Annotation of Anomalies |
+| **Ran Qiu** (邱然) <sup>*</sup> | Legal Expert Review, Consistency Validation, Auxiliary Data Cleaning |
+| **Jiarong Ge** (葛嘉荣) <sup>*</sup> | Legal Expert Review, Automated Sampling & Proofreading, Manual Annotation of Anomalies |
 
 > <sup>*</sup> *These authors contributed equally to this work.*
 
