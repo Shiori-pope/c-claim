@@ -1,0 +1,3 @@
+include README.md
+include README_zh.md
+recursive-include c_claim/data *
